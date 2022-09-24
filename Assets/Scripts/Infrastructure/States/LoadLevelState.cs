@@ -35,9 +35,9 @@ namespace Infrastructure.States
 
         private void OnLoaded()
         {
-            GameObject player = gameFactory.CreatePlayer(GameObject.FindWithTag(InitialPointTag));
+            //GameObject player = gameFactory.CreatePlayer();
 
-            gameFactory.CreateHUD();
+            //gameFactory.CreateHUD();
             
             stateMachine.Enter<GameLoopState>();
         }
