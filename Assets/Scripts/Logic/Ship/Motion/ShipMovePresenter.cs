@@ -1,8 +1,9 @@
 ﻿using Infrastructure.Services;
+using Logic.General;
 using Services.Input;
 using UnityEngine;
 
-namespace Logic.Ship
+namespace Logic.Ship.Motion
 {
     public class ShipMovePresenter: MonoBehaviour
     {

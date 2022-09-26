@@ -2,6 +2,7 @@
 using Infrastructure.Factory;
 using Infrastructure.Services;
 using Logic.Ship;
+using Logic.Ship.Motion;
 using Services.Input;
 
 namespace Infrastructure.States

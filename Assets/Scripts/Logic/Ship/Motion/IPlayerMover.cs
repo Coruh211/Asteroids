@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Services;
 using UnityEngine;
 
-namespace Logic.Ship
+namespace Logic.Ship.Motion
 {
     public interface IPlayerMover: IService
     {

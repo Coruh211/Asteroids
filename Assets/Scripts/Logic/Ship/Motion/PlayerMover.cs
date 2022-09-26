@@ -1,9 +1,7 @@
-﻿
-using System;
-using Services.Input;
+﻿using Services.Input;
 using UnityEngine;
 
-namespace Logic.Ship
+namespace Logic.Ship.Motion
 {
     public class PlayerMover : IPlayerMover
     {

@@ -1,6 +1,7 @@
 ﻿using System;
 using Infrastructure;
 using Logic.Ship;
+using Logic.Ship.Motion;
 using TMPro;
 using UnityEngine;
 

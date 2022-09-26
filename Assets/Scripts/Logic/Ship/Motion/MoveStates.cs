@@ -1,4 +1,4 @@
-﻿namespace Logic.Ship
+﻿namespace Logic.Ship.Motion
 {
     public enum MoveStates
     {

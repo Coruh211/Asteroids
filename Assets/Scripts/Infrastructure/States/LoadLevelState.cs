@@ -4,6 +4,7 @@ using Infrastructure.Factory;
 using Infrastructure.Services;
 using LoadScreen;
 using Logic.Ship;
+using Logic.Ship.Motion;
 using Logic.UI.UICanvas;
 using Unity.VisualScripting;
 using UnityEngine;

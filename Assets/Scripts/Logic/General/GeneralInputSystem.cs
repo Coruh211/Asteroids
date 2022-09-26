@@ -1,7 +1,8 @@
 ﻿using System;
+using Services.Input;
 using UnityEngine;
 
-namespace Services.Input
+namespace Logic.General
 {
     public class GeneralInputSystem : Singleton<GeneralInputSystem>
     {
@@ -11,9 +12,8 @@ namespace Services.Input
         [SerializeField] private KeyCode fireKeyCode = KeyCode.Space;
         [SerializeField] private KeyCode laserKeyCode = KeyCode.R;
 
-        private bool enableInput = false;
+        private bool _enableInput;
         public event Action<string> KeyDown;
-        public event Action KeyUp;
         public event Action MoveKeyUp;
         public event Action AngleKeyUp;
 
@@ -23,46 +23,60 @@ namespace Services.Input
         
         private void Update()
         {
-            if(!enableInput)
+            if(!_enableInput)
                 return;
-            
-            if (UnityEngine.Input.GetKey(upKeyCode))
+
+            CheckMoveInput();
+            CheckAngleInput();
+            CheckFireInput();
+        }
+        
+        private void CheckFireInput()
+        {
+            if(Input.GetKey(fireKeyCode))
             {
-                KeyDown?.Invoke(InputConstants.Up);
+                KeyDown?.Invoke(InputConstants.Bullet);
             }
-            else if (UnityEngine.Input.GetKeyUp(upKeyCode))
-            {
-                MoveKeyUp?.Invoke();
-            }
-            
-            if (UnityEngine.Input.GetKey(leftKeyCode))
-            {
-                KeyDown?.Invoke(InputConstants.Left);
-            }
-            else if (UnityEngine.Input.GetKey(rightKeyCode))
-            {
-                KeyDown?.Invoke(InputConstants.Right);
-            }
-            else if (UnityEngine.Input.GetKeyUp(leftKeyCode))
-            {
-                AngleKeyUp?.Invoke();
-            }
-            else if (UnityEngine.Input.GetKeyUp(rightKeyCode))
-            {
-                AngleKeyUp?.Invoke();
-            }
-            
-            if(UnityEngine.Input.GetKey(fireKeyCode))
-            {
-                KeyDown?.Invoke(InputConstants.Fire);
-            }
-            else if (UnityEngine.Input.GetKey(laserKeyCode))
+            else if (Input.GetKeyDown(laserKeyCode))
             {
                 KeyDown?.Invoke(InputConstants.Laser);   
             }
         }
-        
+
+        private void CheckAngleInput()
+        {
+            if (Input.GetKey(leftKeyCode))
+            {
+                KeyDown?.Invoke(InputConstants.Left);
+            }
+            else if (Input.GetKey(rightKeyCode))
+            {
+                KeyDown?.Invoke(InputConstants.Right);
+            }
+            else if (Input.GetKeyUp(leftKeyCode))
+            {
+                AngleKeyUp?.Invoke();
+            }
+            else if (Input.GetKeyUp(rightKeyCode))
+            {
+                AngleKeyUp?.Invoke();
+            }
+        }
+
+        private void CheckMoveInput()
+        {
+            if (Input.GetKey(upKeyCode))
+            {
+                KeyDown?.Invoke(InputConstants.Up);
+            }
+            else if (Input.GetKeyUp(upKeyCode))
+            {
+                MoveKeyUp?.Invoke();
+            }
+        }
+
+
         private void EnableInput() => 
-            enableInput = true;
+            _enableInput = true;
     }
 }

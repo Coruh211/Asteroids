@@ -1,7 +1,7 @@
 ﻿using Services.Input;
 using UnityEngine;
 
-namespace Logic.Ship
+namespace Logic.Ship.Motion
 {
     public class PlayerRotator: IPlayerRotator
     {
