@@ -1,6 +1,7 @@
 ﻿using Infrastructure.AssetManagement;
 using Infrastructure.Factory;
 using Infrastructure.Services;
+using Logic.Ship;
 using Services.Input;
 
 namespace Infrastructure.States
@@ -38,6 +39,8 @@ namespace Infrastructure.States
         {
             services.RegisterSingle<IAssetProvider>(new AssetProvider());
             services.RegisterSingle<IGameFactory>(new GameFactory(services.Single<IAssetProvider>()));
+            services.RegisterSingle<IPlayerRotator>(new PlayerRotator());
+            services.RegisterSingle<IPlayerMover>(new PlayerMover());
         }
 
         

@@ -5,7 +5,6 @@ namespace Infrastructure.Factory
 {
     public interface IGameFactory: IService
     {
-        GameObject CreatePlayer(GameObject initialPoint);
-        void CreateHUD();
+        GameObject CreateObject(string path);
     }
 }

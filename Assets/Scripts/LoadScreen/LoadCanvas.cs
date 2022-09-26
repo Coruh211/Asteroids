@@ -7,7 +7,7 @@ namespace LoadScreen
 {
     public class LoadCanvas: MonoBehaviour
     {
-        private float hideDuration = 3f;
+        private float hideDuration = 1.5f;
 
         private void Awake()
         {
@@ -22,6 +22,5 @@ namespace LoadScreen
             Observable.Timer(hideDuration.sec())
                 .Subscribe(x => gameObject.SetActive(false));
         }
-            
     }
 }

@@ -10,14 +10,11 @@ namespace Infrastructure.Factory
         {
             assets = assetProvider;
         }
-        public GameObject CreatePlayer(GameObject initialPoint)
+        public GameObject CreateObject(string path)
         {
-            return assets.Instantiate(AssetPath.PlayerPath, initialPoint.transform.position);
+            return assets.Instantiate(path);
         }
         
-        public void CreateHUD()
-        {
-            assets.Instantiate(AssetPath.HUDPath);
-        }
+       
     }
 }
