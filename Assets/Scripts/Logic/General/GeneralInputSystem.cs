@@ -13,9 +13,16 @@ namespace Logic.General
         [SerializeField] private KeyCode laserKeyCode = KeyCode.R;
 
         private bool _enableInput;
-        public event Action<string> KeyDown;
+        
+        public event Action<string> FireKeyDown;
+        
+        public event Action<string> MoveKeyDown;
         public event Action MoveKeyUp;
-        public event Action AngleKeyUp;
+        
+        public event Action<string> RotateKeyDown;
+        public event Action RotateKeyUp;
+        
+        
 
         
         private void Start() => 
@@ -35,11 +42,11 @@ namespace Logic.General
         {
             if(Input.GetKey(fireKeyCode))
             {
-                KeyDown?.Invoke(InputConstants.Bullet);
+                FireKeyDown?.Invoke(InputConstants.Bullet);
             }
             else if (Input.GetKeyDown(laserKeyCode))
             {
-                KeyDown?.Invoke(InputConstants.Laser);   
+                FireKeyDown?.Invoke(InputConstants.Laser);   
             }
         }
 
@@ -47,19 +54,19 @@ namespace Logic.General
         {
             if (Input.GetKey(leftKeyCode))
             {
-                KeyDown?.Invoke(InputConstants.Left);
+                RotateKeyDown?.Invoke(InputConstants.Left);
             }
             else if (Input.GetKey(rightKeyCode))
             {
-                KeyDown?.Invoke(InputConstants.Right);
+                RotateKeyDown?.Invoke(InputConstants.Right);
             }
             else if (Input.GetKeyUp(leftKeyCode))
             {
-                AngleKeyUp?.Invoke();
+                RotateKeyUp?.Invoke();
             }
             else if (Input.GetKeyUp(rightKeyCode))
             {
-                AngleKeyUp?.Invoke();
+                RotateKeyUp?.Invoke();
             }
         }
 
@@ -67,7 +74,7 @@ namespace Logic.General
         {
             if (Input.GetKey(upKeyCode))
             {
-                KeyDown?.Invoke(InputConstants.Up);
+                MoveKeyDown?.Invoke(InputConstants.Up);
             }
             else if (Input.GetKeyUp(upKeyCode))
             {
@@ -78,5 +85,7 @@ namespace Logic.General
 
         private void EnableInput() => 
             _enableInput = true;
+
+        
     }
 }

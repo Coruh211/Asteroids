@@ -5,7 +5,7 @@ namespace Infrastructure.Services
     public class AllServices
     {
         private static AllServices instance;
-        public static AllServices Container => instance ?? (instance = new AllServices());
+        public static AllServices Container => instance ??= new AllServices();
 
         public void RegisterSingle<TService>(TService implementation) where TService : IService => 
             Implementation<TService>.ServiceInstance = implementation;

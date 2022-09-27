@@ -1,56 +1,60 @@
-﻿using Services.Input;
+﻿using Infrastructure.AssetManagement;
+using Services.Input;
+using StaticData;
 using UnityEngine;
 
 namespace Logic.Ship.Motion
 {
     public class PlayerRotator: IPlayerRotator
     {
+        private float _rotateSpeed;
+        private readonly ShipSO _shipSo;
         private RotateStates _actualRotateState;
-        
+
+        public PlayerRotator(ShipSO shipSo)
+        {
+            _shipSo = shipSo;
+            SetParameters();
+        }
+
         public void ReadKeyKodeEvent(string name)
         {
-            switch (name)
+            _actualRotateState = name switch
             {
-                case InputConstants.Left:
-                    _actualRotateState = RotateStates.Left;
-                    break;
-                case InputConstants.Right:
-                    _actualRotateState = RotateStates.Right;
-                    break;
-                default:
-                    _actualRotateState = RotateStates.Stop;
-                    break;
-            }
+                InputConstants.Left => RotateStates.Left,
+                InputConstants.Right => RotateStates.Right,
+                _ => RotateStates.Stop
+            };
         }
         
-        public void UpdateRotateWithState(Transform obj, float speed)
+        public void UpdateRotateWithState(Transform obj)
         {
             switch (_actualRotateState)
             {
                 case RotateStates.Left:
-                    obj.transform.Rotate(RotateLeft(speed));
+                    obj.transform.Rotate(RotateLeft());
                     break;
                 case RotateStates.Right:
-                    obj.transform.Rotate(RotateRight(speed));
+                    obj.transform.Rotate(RotateRight());
                     break;
                 case RotateStates.Stop:
                     break;
             }
         }
         
-        public Vector3 RotateLeft(float speed) => 
-            new(0, 0, speed);
-
-        public Vector3 RotateRight(float speed) => 
-            new(0, 0, -speed);
-
-
         public void SetActualState(RotateStates state) => 
             _actualRotateState = state;
 
         public RotateStates GetActualState() =>
             _actualRotateState;
 
+        private Vector3 RotateLeft() => 
+            new(0, 0, _rotateSpeed);
+
+        private Vector3 RotateRight() => 
+            new(0, 0, -_rotateSpeed);
         
+        private void SetParameters() =>
+            _rotateSpeed = _shipSo.rotateSpeed;
     }
 }

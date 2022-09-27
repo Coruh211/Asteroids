@@ -1,4 +1,6 @@
-﻿using Services.Input;
+﻿using Infrastructure.AssetManagement;
+using Services.Input;
+using StaticData;
 using UnityEngine;
 
 namespace Logic.Ship.Motion
@@ -9,9 +11,20 @@ namespace Logic.Ship.Motion
         private float _actualSpeed;
         private bool _firstAppeal;
         private float _maxSpeed;
+        private readonly ShipSO _shipSo;
+        private float _speed;
 
+        public PlayerMover(ShipSO shipSo)
+        {
+            _shipSo = shipSo;
+            SetParameters();
+        }
 
-        public float maxSpeed { private get; set; }
+        private void SetParameters()
+        {
+            _speed = _shipSo.moveSpeed;
+            _maxSpeed = _shipSo.maxMoveSpeed;
+        }
 
         public void ReadKeyKodeEvent(string name)
         {
@@ -21,40 +34,19 @@ namespace Logic.Ship.Motion
             }
         }
         
-        public void UpdatePositionWithState(Transform obj, float speed)
+        public void UpdatePositionWithState(Transform obj)
         {
             switch (_actualMoveState)
             {
                 case MoveStates.Up:
-                    obj.transform.Translate(Move(speed));
+                    obj.transform.Translate(Move());
                     break;
                 case MoveStates.Inertia:
-                    obj.Translate(SimulationInertia(speed));
+                    obj.Translate(SimulationInertia());
                     break;
             }
         }
         
-        public Vector3 SimulationInertia(float speed)
-        {
-            if (_actualSpeed <= 0)
-            {
-                _actualSpeed = 0;
-                return Vector3.zero;
-            }
-
-            _actualSpeed -= speed;
-
-            return new Vector3(0, _actualSpeed, 0);
-        }
-
-        public Vector3 Move(float speed)
-        {
-            if(_actualSpeed < maxSpeed)
-                _actualSpeed += speed;
-            
-            return new Vector3(0, _actualSpeed, 0);
-        }
-
         public void SetActualState(MoveStates state) => 
             _actualMoveState = state;
 
@@ -63,6 +55,27 @@ namespace Logic.Ship.Motion
 
         public float GetMomentumSpeed() =>
             _actualSpeed;
+        
+        private Vector3 SimulationInertia()
+        {
+            if (_actualSpeed <= 0)
+            {
+                _actualSpeed = 0;
+                return Vector3.zero;
+            }
+
+            _actualSpeed -= _speed;
+
+            return new Vector3(0, _actualSpeed, 0);
+        }
+
+        private Vector3 Move()
+        {
+            if(_actualSpeed < _maxSpeed)
+                _actualSpeed += _speed;
+            
+            return new Vector3(0, _actualSpeed, 0);
+        }
 
         
     }

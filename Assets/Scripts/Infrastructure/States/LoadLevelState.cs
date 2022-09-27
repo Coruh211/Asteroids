@@ -13,38 +13,48 @@ namespace Infrastructure.States
 {
     public class LoadLevelState: IPayloadedState<string>
     {
-        private readonly GameStateMachine stateMachine;
-        private readonly SceneLoader sceneLoader;
-        private readonly LoadCanvas loadCanvas;
-        private readonly IGameFactory gameFactory;
+        private readonly GameStateMachine _stateMachine;
+        private readonly SceneLoader _sceneLoader;
+        private readonly LoadCanvas _loadCanvas;
+        private readonly IGameFactory _gameFactory;
+        private readonly AllServices _allServices;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadCanvas loadCanvas, IGameFactory gameFactory)
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadCanvas loadCanvas,
+            IGameFactory gameFactory, AllServices allServices)
         {
-            this.stateMachine = stateMachine;
-            this.sceneLoader = sceneLoader;
-            this.loadCanvas = loadCanvas;
-            this.gameFactory = gameFactory;
+            _stateMachine = stateMachine;
+            _sceneLoader = sceneLoader;
+            _loadCanvas = loadCanvas;
+            _gameFactory = gameFactory;
+            _allServices = allServices;
         }
 
         public void Enter(string sceneName)
         {
-            loadCanvas.Show();
-            sceneLoader.Load(sceneName, OnLoaded);
+            _loadCanvas.Show();
+            RegisterServices();
+            _sceneLoader.Load(sceneName, OnLoaded);
         }
         
         public void Exit()
         {
-            loadCanvas.Hide();    
+            _loadCanvas.Hide();    
+        }
+
+        private void RegisterServices()
+        {
+            _allServices.RegisterSingle<IPlayerRotator>(new PlayerRotator(AssetContainer.ShipSo));
+            _allServices.RegisterSingle<IPlayerMover>(new PlayerMover(AssetContainer.ShipSo));
         }
 
         private void OnLoaded()
         {
-            gameFactory.CreateObject(AssetPath.GlobalInput);
-            GameObject player = gameFactory.CreateObject(AssetPath.PlayerPath);
-            GameObject ui = gameFactory.CreateObject(AssetPath.UICanvasPath);
+            _gameFactory.CreateObject(AssetPath.GlobalInput);
+            GameObject player = _gameFactory.CreateObject(AssetContainer.ShipSo.shipPrefab);
+            GameObject ui = _gameFactory.CreateObject(AssetPath.UICanvasPath);
             ui.GetComponent<InformationTextsPresenter>().Init(player, AllServices.Container.Single<IPlayerMover>(), AllServices.Container.Single<IPlayerRotator>());
 
-            stateMachine.Enter<GameLoopState>();
+            _stateMachine.Enter<GameLoopState>();
         }
     }
 }

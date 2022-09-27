@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using StaticData;
+using UnityEngine;
 
 namespace Infrastructure.AssetManagement
 {
@@ -10,10 +11,9 @@ namespace Infrastructure.AssetManagement
             return Object.Instantiate(prefab);
         }
 
-        public GameObject Instantiate(string path, Vector3 at)
+        public GameObject Instantiate(GameObject obj)
         {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, at, Quaternion.identity);
+            return Object.Instantiate(obj);
         }
-    }
+    }   
 }

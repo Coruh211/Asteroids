@@ -1,55 +1,38 @@
 ﻿using Infrastructure.Services;
 using Logic.General;
-using Services.Input;
 using UnityEngine;
 
 namespace Logic.Ship.Motion
 {
     public class ShipMovePresenter: MonoBehaviour
     {
-        [SerializeField] private float maxSpeed;
-        [SerializeField] private float speed;
-        [SerializeField] private float rotateSpeed;
-        
         private IPlayerMover _playerMover;
-        private IPlayerRotator _playerRotator;
-        
+        private AreaControl _areaControl;
 
         private void Start()
         {
             _playerMover = AllServices.Container.Single<IPlayerMover>();
-            _playerRotator = AllServices.Container.Single<IPlayerRotator>();
-            GeneralInputSystem.Instance.KeyDown += SetMoveState;
+            _areaControl = new AreaControl();
+            
+            GeneralInputSystem.Instance.MoveKeyDown += SetMoveState;
             GeneralInputSystem.Instance.MoveKeyUp += StartInertia;
-            GeneralInputSystem.Instance.AngleKeyUp += StopRotate;
             
             SetStartSettings();
         }
 
-        private void SetStartSettings()
+        private void FixedUpdate()
         {
-            _playerMover.maxSpeed = maxSpeed;
-            _playerMover.SetActualState(MoveStates.Inertia);
-            _playerRotator.SetActualState(RotateStates.Stop);
+            _areaControl.CheckPositionInArea(gameObject);
+            _playerMover.UpdatePositionWithState(transform);
         }
 
-        private void StopRotate() =>
-            _playerRotator.SetActualState(RotateStates.Stop); 
+        private void SetStartSettings() => 
+            _playerMover.SetActualState(MoveStates.Inertia);
         
-
         private void StartInertia() => 
             _playerMover.SetActualState(MoveStates.Inertia);
 
-        private void SetMoveState(string name)
-        {
-            _playerMover.ReadKeyKodeEvent(name);
-            _playerRotator.ReadKeyKodeEvent(name);
-        }
-        
-        private void FixedUpdate()
-        {
-            _playerMover.UpdatePositionWithState(transform, speed);
-            _playerRotator.UpdateRotateWithState(transform, rotateSpeed);
-        }
+        private void SetMoveState(string keyName) => 
+            _playerMover.ReadKeyKodeEvent(keyName);
     }
 }

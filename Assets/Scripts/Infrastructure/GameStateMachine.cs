@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using Infrastructure.AssetManagement;
 using Infrastructure.Factory;
 using Infrastructure.Services;
 using Infrastructure.States;
@@ -18,7 +19,7 @@ namespace Infrastructure
             states = new Dictionary<Type, IExsitableState>()
             {
                 [typeof (BootstrapState)] = new BootstrapState(this, sceneLoader, services),
-                [typeof (LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadCanvas, services.Single<IGameFactory>()),
+                [typeof (LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadCanvas, services.Single<IGameFactory>(), services),
                 [typeof (GameLoopState)] = new GameLoopState(this)
             };
         }

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aefa59999d047948b1246f493baf45d, type: 3}
+  m_Name: ShipSO
+  m_EditorClassIdentifier: 
+  shipPrefab: {fileID: 3629555082900645794, guid: 1370c80db671b1e45a6c2d841545db0c, type: 3}
+  moveSpeed: 0.001
+  maxMoveSpeed: 0.05
+  rotateSpeed: 4

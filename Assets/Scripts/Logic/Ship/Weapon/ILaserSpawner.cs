@@ -7,6 +7,6 @@ namespace Logic.Ship.Weapon
     {
         public float GetLasersCount();
         public float GetLaserTimer();
-        public void TrySpawnLaser(GameObject obj, GameObject parent, GameObject spawnPoint);
+        public void TrySpawnLaser(GameObject parent, GameObject spawnPoint);
     }
 }

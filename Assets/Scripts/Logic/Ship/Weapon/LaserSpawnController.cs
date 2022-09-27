@@ -1,4 +1,6 @@
-﻿using UniRx;
+﻿using Infrastructure.AssetManagement;
+using StaticData;
+using UniRx;
 using UnityEngine;
 
 namespace Logic.Ship.Weapon
@@ -6,19 +8,30 @@ namespace Logic.Ship.Weapon
     public class LaserSpawnController : ILaserSpawner
     {
         private readonly WeaponFactory _weaponFactory;
-        private readonly int _maxLasers;
-        private readonly float _laserKd;
+        private GameObject _laserPrefab;
+        private LaserSO _laserSo;
         
         private int _lasersCount;
+        private int _maxLasers;
+        
+        private float _laserKd;
         private float _laserTimer;
+        
         private bool _kd;
-
-        public LaserSpawnController(WeaponFactory weaponFactory, float laserKd, int lasersCount)
+        
+        public LaserSpawnController(WeaponFactory weaponFactory)
         {
-            _laserKd = laserKd;
-            _lasersCount = lasersCount;
-            _maxLasers = lasersCount;
             _weaponFactory = weaponFactory;
+            GetSoInformation();
+        }
+
+        private void GetSoInformation()
+        {
+            _laserSo = AssetContainer.LaserSo;
+            _laserKd = _laserSo.laserKd;
+            _lasersCount = _laserSo.lasersCount;
+            _maxLasers = _lasersCount;
+            _laserPrefab = _laserSo.laserPrefab;
         }
 
         public float GetLasersCount() =>
@@ -27,7 +40,7 @@ namespace Logic.Ship.Weapon
         public float GetLaserTimer() =>
             _laserTimer;
 
-        public void TrySpawnLaser(GameObject obj, GameObject parent, GameObject spawnPoint)
+        public void TrySpawnLaser(GameObject parent, GameObject spawnPoint)
         {
             if(_lasersCount <= 0)
                 return;
@@ -35,7 +48,7 @@ namespace Logic.Ship.Weapon
             if(!_kd)
                 StartLaserKD();
             
-            _weaponFactory.CreateWeapon(obj, parent, spawnPoint);
+            _weaponFactory.CreateWeapon(_laserPrefab, parent, spawnPoint);
         }
 
         private void StartLaserKD()

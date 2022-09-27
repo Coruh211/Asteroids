@@ -6,12 +6,7 @@ namespace Logic.Ship.Weapon
 {
     public class FirePresenter: MonoBehaviour
     {
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private GameObject laserPrefab;
         [SerializeField] private GameObject weaponSpawnPoint;
-        [SerializeField] private float bulletSpawnInterval;
-        [SerializeField] private float laserKd;
-        [SerializeField] private int lasersCount;
         
         private WeaponFactory _weaponFactory;
         private BulletSpawnController _bulletSpawnController;
@@ -20,21 +15,21 @@ namespace Logic.Ship.Weapon
 
         private void Start()
         {
-            GeneralInputSystem.Instance.KeyDown += ReadKey;
+            GeneralInputSystem.Instance.FireKeyDown += ReadFireKey;
             _weaponFactory = new WeaponFactory();
-            _bulletSpawnController = new BulletSpawnController(_weaponFactory, bulletSpawnInterval);
-            _laserSpawnController = new LaserSpawnController(_weaponFactory, laserKd, lasersCount);
+            _bulletSpawnController = new BulletSpawnController(_weaponFactory);
+            _laserSpawnController = new LaserSpawnController(_weaponFactory);
         }
 
-        private void ReadKey(string name)
+        private void ReadFireKey(string name)
         {
             switch (name)
             {
                 case InputConstants.Bullet:
-                    _bulletSpawnController.TrySpawnBullet(bulletPrefab, gameObject, weaponSpawnPoint);
+                    _bulletSpawnController.TrySpawnBullet(gameObject, weaponSpawnPoint);
                     break;
                 case InputConstants.Laser:
-                    _laserSpawnController.TrySpawnLaser(laserPrefab, gameObject, weaponSpawnPoint );
+                    _laserSpawnController.TrySpawnLaser( gameObject, weaponSpawnPoint );
                     break;
             }
         }

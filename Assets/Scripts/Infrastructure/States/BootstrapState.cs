@@ -1,31 +1,32 @@
 ﻿using Infrastructure.AssetManagement;
 using Infrastructure.Factory;
 using Infrastructure.Services;
-using Logic.Ship;
 using Logic.Ship.Motion;
-using Services.Input;
+using StaticData;
+using UnityEngine;
 
 namespace Infrastructure.States
 {
     public class BootstrapState: IState
     {
         private const string Initial = "Initial";
-        private readonly GameStateMachine stateMachine;
-        private SceneLoader sceneLoader;
-        private AllServices services;
+        private readonly GameStateMachine _stateMachine;
+        private readonly SceneLoader _sceneLoader;
+        private readonly AllServices _services;
+        
 
         public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, AllServices services)
         {
-            stateMachine = gameStateMachine;
-            this.sceneLoader = sceneLoader;
-            this.services = services;
+            _stateMachine = gameStateMachine;
+            _sceneLoader = sceneLoader;
+            _services = services;
             
             RegisterServices();
         }
 
         public void Enter()
         {
-            sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
+            _sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
         }
         
         public void Exit()
@@ -34,16 +35,13 @@ namespace Infrastructure.States
         }
 
         private void EnterLoadLevel() => 
-            stateMachine.Enter<LoadLevelState, string>("Game");
+            _stateMachine.Enter<LoadLevelState, string>("Game");
 
         private void RegisterServices()
         {
-            services.RegisterSingle<IAssetProvider>(new AssetProvider());
-            services.RegisterSingle<IGameFactory>(new GameFactory(services.Single<IAssetProvider>()));
-            services.RegisterSingle<IPlayerRotator>(new PlayerRotator());
-            services.RegisterSingle<IPlayerMover>(new PlayerMover());
+            AssetContainer.LoadResources();
+            _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
         }
-
-        
     }
 }
