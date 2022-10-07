@@ -1,7 +1,9 @@
 ﻿using System;
 using Infrastructure;
+using Infrastructure.Services;
 using Logic.Ship;
 using Logic.Ship.Motion;
+using Logic.Ship.Weapon;
 using TMPro;
 using UnityEngine;
 
@@ -18,14 +20,13 @@ namespace Logic.UI.UICanvas
         
         private GameObject _player;
         private IPlayerMover _playerMover;
-        private IPlayerRotator _playerRotator;
-        private Vector2 _limitZ = new Vector3(-180, 180);
+        private ILaserSpawner _laserSpawner;
 
-        public void Init(GameObject player, IPlayerMover playerMover, IPlayerRotator playerRotator)
+        public void Init(GameObject player, IPlayerMover playerMover)
         {
             _player = player;
             _playerMover = playerMover;
-            _playerRotator = playerRotator;
+            _laserSpawner = AllServices.Container.Single<ILaserSpawner>();
         }
         
         private void Start()
@@ -36,10 +37,21 @@ namespace Logic.UI.UICanvas
 
         private void FixedUpdate()
         {
+            if(_player == null)
+                return;
+            
             SetPositionText();
             SetAngle();
             SetSpeed();
+            SetLaserCharges();
+            SetLaserChargesKD();
         }
+
+        private void SetLaserChargesKD() => 
+            laserChargeKDTxt.text = "New laser charge in: " + _laserSpawner.GetLaserTimer();
+
+        private void SetLaserCharges() => 
+            laserChargesTxt.text = "Laser charges: " + _laserSpawner.GetLasersCount();
 
         private void SetSpeed() => 
             speedTxt.text = "Speed: " + _playerMover.GetMomentumSpeed();

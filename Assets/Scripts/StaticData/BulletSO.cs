@@ -10,5 +10,6 @@ namespace StaticData
         public GameObject bulletPrefab;
         public float bulletSpawnInterval;
         public float bulletSpeed;
+        public float bulletAutoDestroyTime;
     }
 }

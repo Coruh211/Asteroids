@@ -1,6 +1,6 @@
 ﻿using Infrastructure.Services;
-using Logic.General;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Logic.Ship.Motion
 {
@@ -9,30 +9,23 @@ namespace Logic.Ship.Motion
         private IPlayerMover _playerMover;
         private AreaControl _areaControl;
 
+        public void SetMoveState(InputAction.CallbackContext context) => 
+            _playerMover.CheckPhase(context);
+
         private void Start()
         {
             _playerMover = AllServices.Container.Single<IPlayerMover>();
             _areaControl = new AreaControl();
-            
-            GeneralInputSystem.Instance.MoveKeyDown += SetMoveState;
-            GeneralInputSystem.Instance.MoveKeyUp += StartInertia;
-            
             SetStartSettings();
         }
-
+        
         private void FixedUpdate()
         {
             _areaControl.CheckPositionInArea(gameObject);
-            _playerMover.UpdatePositionWithState(transform);
+            _playerMover.UpdatePosition(transform);
         }
 
         private void SetStartSettings() => 
             _playerMover.SetActualState(MoveStates.Inertia);
-        
-        private void StartInertia() => 
-            _playerMover.SetActualState(MoveStates.Inertia);
-
-        private void SetMoveState(string keyName) => 
-            _playerMover.ReadKeyKodeEvent(keyName);
     }
 }

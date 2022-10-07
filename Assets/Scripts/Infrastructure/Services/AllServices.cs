@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Factory;
+using Logic.Ship.Weapon;
 
 namespace Infrastructure.Services
 {

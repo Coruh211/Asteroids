@@ -1,6 +1,6 @@
 ﻿using Infrastructure.Services;
-using Logic.General;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Logic.Ship.Motion
 {
@@ -8,26 +8,20 @@ namespace Logic.Ship.Motion
     {
         private IPlayerRotator _playerRotator;
 
+        
+        public void SetRotateState(InputAction.CallbackContext context) => 
+            _playerRotator.CheckCondition(context);
+        
         private void Start()
         {
             _playerRotator = AllServices.Container.Single<IPlayerRotator>();
-            
-            GeneralInputSystem.Instance.RotateKeyDown += SetRotateState;
-            GeneralInputSystem.Instance.RotateKeyUp += StopRotate;
-            
-            SetStartSettings();
         }
         
         private void FixedUpdate() => 
-            _playerRotator.UpdateRotateWithState(transform);
+            _playerRotator.UpdateRotate(transform);
 
-        private void SetStartSettings() => 
-            _playerRotator.SetActualState(RotateStates.Stop);
-
-        private void SetRotateState(string keyName) => 
-            _playerRotator.ReadKeyKodeEvent(keyName);
         
-        private void StopRotate() =>
-            _playerRotator.SetActualState(RotateStates.Stop); 
+        
+        
     }
 }

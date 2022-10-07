@@ -9,11 +9,11 @@ namespace Logic.Ship.Weapon
     {
         private bool _isInterval;
         private readonly float _spawnInterval;
-        private readonly WeaponFactory _weaponFactory;
+        private readonly IWeaponFactory _weaponFactory;
         private readonly BulletSO _bulletSo;
         private readonly GameObject _bulletPrefab;
 
-        public BulletSpawnController(WeaponFactory weaponFactory)
+        public BulletSpawnController(IWeaponFactory weaponFactory)
         {
             _bulletSo = AssetContainer.BulletSo;
             _bulletPrefab = _bulletSo.bulletPrefab;
@@ -21,7 +21,7 @@ namespace Logic.Ship.Weapon
             _weaponFactory = weaponFactory;
         }
         
-        public void TrySpawnBullet( GameObject parent, GameObject weaponSpawnPoint)
+        public void TrySpawnBullet(GameObject parent, GameObject weaponSpawnPoint)
         {
             if (_isInterval) 
                 return;

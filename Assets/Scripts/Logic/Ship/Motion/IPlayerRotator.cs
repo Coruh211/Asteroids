@@ -1,14 +1,12 @@
 ﻿using Infrastructure.Services;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Logic.Ship.Motion
 {
     public interface IPlayerRotator: IService
     {
-        public void ReadKeyKodeEvent(string name);
-        public void SetActualState(RotateStates state);
-        public RotateStates GetActualState();
-        
-        public void UpdateRotateWithState(Transform obj);
+        public void CheckCondition(InputAction.CallbackContext name);
+        public void UpdateRotate(Transform obj);
     }
 }

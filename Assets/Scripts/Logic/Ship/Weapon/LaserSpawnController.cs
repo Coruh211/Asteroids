@@ -1,4 +1,5 @@
-﻿using Infrastructure.AssetManagement;
+﻿using System;
+using Infrastructure.AssetManagement;
 using StaticData;
 using UniRx;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Logic.Ship.Weapon
 {
     public class LaserSpawnController : ILaserSpawner
     {
-        private readonly WeaponFactory _weaponFactory;
+        private readonly IWeaponFactory _weaponFactory;
         private GameObject _laserPrefab;
         private LaserSO _laserSo;
         
@@ -18,8 +19,9 @@ namespace Logic.Ship.Weapon
         private float _laserTimer;
         
         private bool _kd;
-        
-        public LaserSpawnController(WeaponFactory weaponFactory)
+        private IDisposable dispose;
+
+        public LaserSpawnController(IWeaponFactory weaponFactory)
         {
             _weaponFactory = weaponFactory;
             GetSoInformation();
@@ -48,15 +50,17 @@ namespace Logic.Ship.Weapon
             if(!_kd)
                 StartLaserKD();
             
+            _lasersCount--;
             _weaponFactory.CreateWeapon(_laserPrefab, parent, spawnPoint);
         }
 
         private void StartLaserKD()
         {
+            dispose?.Dispose();
             _kd = true;
             _laserTimer = _laserKd;
             
-            Observable.Interval(1f.sec()).Subscribe(x =>
+            dispose = Observable.Interval(1f.sec()).Subscribe(x =>
             {
                 CheckCondition();
                 _laserTimer--;

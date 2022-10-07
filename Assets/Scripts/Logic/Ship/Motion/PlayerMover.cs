@@ -1,7 +1,7 @@
-﻿using Infrastructure.AssetManagement;
-using Services.Input;
+﻿using Infrastructure;
 using StaticData;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Logic.Ship.Motion
 {
@@ -13,28 +13,37 @@ namespace Logic.Ship.Motion
         private float _maxSpeed;
         private readonly ShipSO _shipSo;
         private float _speed;
+        private IPlayerMover _playerMoverImplementation;
 
         public PlayerMover(ShipSO shipSo)
         {
             _shipSo = shipSo;
             SetParameters();
         }
-
+        
         private void SetParameters()
         {
             _speed = _shipSo.moveSpeed;
             _maxSpeed = _shipSo.maxMoveSpeed;
         }
 
-        public void ReadKeyKodeEvent(string name)
+        public void CheckPhase(InputAction.CallbackContext callbackContext)
         {
-            if (InputConstants.Up == name)
+            if(!GeneralInputState.Instance.input)
+                return;
+            
+            switch (callbackContext.phase)
             {
-                _actualMoveState = MoveStates.Up;
+                    case InputActionPhase.Started:
+                        _actualMoveState = MoveStates.Up;
+                        break;
+                    case InputActionPhase.Canceled:
+                        _actualMoveState = MoveStates.Inertia;
+                        break;
             }
         }
-        
-        public void UpdatePositionWithState(Transform obj)
+
+        public void UpdatePosition(Transform obj)
         {
             switch (_actualMoveState)
             {

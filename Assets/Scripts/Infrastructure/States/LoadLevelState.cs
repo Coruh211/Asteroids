@@ -1,12 +1,13 @@
-﻿using System;
-using Infrastructure.AssetManagement;
+﻿using Infrastructure.AssetManagement;
 using Infrastructure.Factory;
 using Infrastructure.Services;
 using LoadScreen;
-using Logic.Ship;
+using Logic.Enemy;
 using Logic.Ship.Motion;
+using Logic.Ship.Weapon;
+using Logic.Spawner;
 using Logic.UI.UICanvas;
-using Unity.VisualScripting;
+using StaticData;
 using UnityEngine;
 
 namespace Infrastructure.States
@@ -18,6 +19,9 @@ namespace Infrastructure.States
         private readonly LoadCanvas _loadCanvas;
         private readonly IGameFactory _gameFactory;
         private readonly AllServices _allServices;
+        private SpawnController _spawnController;
+        private GameObject[] spawnPoints;
+       
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadCanvas loadCanvas,
             IGameFactory gameFactory, AllServices allServices)
@@ -45,14 +49,17 @@ namespace Infrastructure.States
         {
             _allServices.RegisterSingle<IPlayerRotator>(new PlayerRotator(AssetContainer.ShipSo));
             _allServices.RegisterSingle<IPlayerMover>(new PlayerMover(AssetContainer.ShipSo));
+            _allServices.RegisterSingle<IWeaponFactory>(new WeaponFactory());
+            _allServices.RegisterSingle<ILaserSpawner>(new LaserSpawnController(_allServices.Single<IWeaponFactory>()));
         }
 
         private void OnLoaded()
         {
-            _gameFactory.CreateObject(AssetPath.GlobalInput);
             GameObject player = _gameFactory.CreateObject(AssetContainer.ShipSo.shipPrefab);
             GameObject ui = _gameFactory.CreateObject(AssetPath.UICanvasPath);
-            ui.GetComponent<InformationTextsPresenter>().Init(player, AllServices.Container.Single<IPlayerMover>(), AllServices.Container.Single<IPlayerRotator>());
+            spawnPoints = GameObject.FindGameObjectsWithTag(TagsContainer.Spawner);
+            _spawnController = new SpawnController(spawnPoints, player);
+            ui.GetComponent<InformationTextsPresenter>().Init(player, AllServices.Container.Single<IPlayerMover>());
 
             _stateMachine.Enter<GameLoopState>();
         }
