@@ -15,4 +15,4 @@ MonoBehaviour:
   enemySos:
   - {fileID: 11400000, guid: 167d5a24ebfe84d4ebec8734eaaf5532, type: 2}
   - {fileID: 11400000, guid: 96ddad1acfcf15b48bbb21e2aa7dd42f, type: 2}
-  spawnInterval: 2
+  spawnInterval: 1.5
