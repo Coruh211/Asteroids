@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 4674828749573891507}
   - component: {fileID: 5133332583505163029}
   - component: {fileID: 5660962848828035615}
+  - component: {fileID: -7728633830910345670}
   m_Layer: 0
   m_Name: 'Aster '
   m_TagString: Enemy
@@ -133,7 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19fbfde1ddb74df28d3a48d837b54743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemySo: {fileID: 11400000, guid: 167d5a24ebfe84d4ebec8734eaaf5532, type: 2}
 --- !u!65 &6744745140356201941
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -171,7 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe306c4259940578239619f8eac7cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniAster: {fileID: 11400000, guid: 6b4958d924402f642825115d0f38cd7e, type: 2}
   spawnedAsterCount: 2
 --- !u!54 &5660962848828035615
 Rigidbody:
@@ -189,3 +188,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7728633830910345670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489850986205262195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222e442d5092461a829feab89fdf3656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemySo: {fileID: 11400000, guid: 167d5a24ebfe84d4ebec8734eaaf5532, type: 2}
+  miniAsterSo: {fileID: 11400000, guid: 6b4958d924402f642825115d0f38cd7e, type: 2}

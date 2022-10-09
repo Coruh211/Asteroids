@@ -13,5 +13,6 @@ namespace Logic.Ship.Motion
 
         public void UpdatePosition(Transform obj);
 
+        public void RestartPosition(Transform obj);
     }
 }

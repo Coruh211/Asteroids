@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 8625430967431321401, guid: 4ae4a00af9f49f34eb4d08270e58045d, type: 3}
   moveSpeed: 0.01
+  scoreForDestroy: 15

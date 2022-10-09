@@ -1,11 +1,11 @@
 ﻿using System;
-using Infrastructure;
 using Infrastructure.Services;
-using Logic.Ship;
+using Logic.Enemy;
 using Logic.Ship.Motion;
 using Logic.Ship.Weapon;
 using TMPro;
 using UnityEngine;
+
 
 namespace Logic.UI.UICanvas
 {
@@ -22,17 +22,22 @@ namespace Logic.UI.UICanvas
         private IPlayerMover _playerMover;
         private ILaserSpawner _laserSpawner;
 
-        public void Init(GameObject player, IPlayerMover playerMover)
+        public void Init( IPlayerMover playerMover)
         {
-            _player = player;
             _playerMover = playerMover;
             _laserSpawner = AllServices.Container.Single<ILaserSpawner>();
         }
-        
+
+        private void OnEnable()
+        {
+            _player = GameObject.FindWithTag(TagsContainer.Player);
+        }
+
         private void Start()
         {
             information.SetActive(false);
             EventManager.OnStartGame.Subscribe(ShowInfo);
+            EventManager.OnEndGame.Subscribe(HideInfo);
         }
 
         private void FixedUpdate()
@@ -73,5 +78,9 @@ namespace Logic.UI.UICanvas
 
         private void ShowInfo() => 
             information.SetActive(true);
+
+        
+        private void HideInfo() =>
+            information.SetActive(false);
     }
 }

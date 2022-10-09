@@ -55,7 +55,13 @@ namespace Logic.Ship.Motion
                     break;
             }
         }
-        
+
+        public void RestartPosition(Transform obj)
+        {
+            obj.position = Vector3.zero;
+            obj.rotation = Quaternion.identity;
+        }
+
         public void SetActualState(MoveStates state) => 
             _actualMoveState = state;
 
@@ -85,7 +91,5 @@ namespace Logic.Ship.Motion
             
             return new Vector3(0, _actualSpeed, 0);
         }
-
-        
     }
 }

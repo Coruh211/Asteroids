@@ -1,4 +1,5 @@
-﻿using Infrastructure.AssetManagement;
+﻿using Infrastructure;
+using Infrastructure.AssetManagement;
 using Infrastructure.Services;
 using Logic.Ship.Weapon;
 using UnityEngine;
@@ -10,12 +11,14 @@ namespace Logic.Ship.Weapon
     {
         [SerializeField] private GameObject bulletSpawnPoint;
         
-        
         private WeaponFactory _weaponFactory;
         private BulletSpawnController _bulletSpawnController;
         
         public void FireKey(InputAction.CallbackContext context)
         {
+            if(!GeneralInputState.Instance.input)
+                return;
+            
             if (context.started)
             {
                 _bulletSpawnController.TrySpawnBullet(gameObject, bulletSpawnPoint);

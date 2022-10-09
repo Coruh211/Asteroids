@@ -6,6 +6,7 @@
         public static string Player = "Player";
         public static string Area = "Area";
         public static string Spawner = "Spawner";
+        public static string SpawnContainer = "SpawnContainer";
         public static string Enemy = "Enemy";
 
     }

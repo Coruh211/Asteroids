@@ -1,4 +1,4 @@
-﻿using Infrastructure.AssetManagement;
+﻿using System.Diagnostics;
 using Infrastructure.Factory;
 using Infrastructure.Services;
 using LoadScreen;
@@ -21,7 +21,8 @@ namespace Infrastructure.States
         private readonly AllServices _allServices;
         private SpawnController _spawnController;
         private GameObject[] spawnPoints;
-       
+        private GameObject spawnContainer;
+
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadCanvas loadCanvas,
             IGameFactory gameFactory, AllServices allServices)
@@ -55,11 +56,12 @@ namespace Infrastructure.States
 
         private void OnLoaded()
         {
-            GameObject player = _gameFactory.CreateObject(AssetContainer.ShipSo.shipPrefab);
+            _gameFactory.CreateObject(AssetContainer.ShipSo.shipPrefab);
             GameObject ui = _gameFactory.CreateObject(AssetPath.UICanvasPath);
             spawnPoints = GameObject.FindGameObjectsWithTag(TagsContainer.Spawner);
-            _spawnController = new SpawnController(spawnPoints, player);
-            ui.GetComponent<InformationTextsPresenter>().Init(player, AllServices.Container.Single<IPlayerMover>());
+            spawnContainer = GameObject.FindGameObjectWithTag(TagsContainer.SpawnContainer);
+            _spawnController = new SpawnController(spawnPoints, spawnContainer);
+            ui.GetComponent<InformationTextsPresenter>().Init( AllServices.Container.Single<IPlayerMover>());
 
             _stateMachine.Enter<GameLoopState>();
         }

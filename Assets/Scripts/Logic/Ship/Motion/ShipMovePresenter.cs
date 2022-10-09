@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services;
+﻿using Infrastructure;
+using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,8 @@ namespace Logic.Ship.Motion
 {
     public class ShipMovePresenter: MonoBehaviour
     {
+        [SerializeField] private GameObject shipSprite;
+        
         private IPlayerMover _playerMover;
         private AreaControl _areaControl;
 
@@ -16,11 +19,20 @@ namespace Logic.Ship.Motion
         {
             _playerMover = AllServices.Container.Single<IPlayerMover>();
             _areaControl = new AreaControl();
+            EventManager.OnRestartGame.Subscribe(RestartPosition);
             SetStartSettings();
         }
-        
+
+        private void RestartPosition()
+        {
+            shipSprite.SetActive(true);
+            _playerMover.RestartPosition(transform);
+        }
+
         private void FixedUpdate()
         {
+            if(!GeneralInputState.Instance.input)
+                return;
             _areaControl.CheckPositionInArea(gameObject);
             _playerMover.UpdatePosition(transform);
         }

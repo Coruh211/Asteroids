@@ -1,6 +1,7 @@
 ﻿using Infrastructure.AssetManagement;
 using Infrastructure.Factory;
 using Infrastructure.Services;
+using Logic;
 using Logic.Ship.Motion;
 using StaticData;
 using UnityEngine;
@@ -42,6 +43,7 @@ namespace Infrastructure.States
             AssetContainer.LoadResources();
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
+            _services.RegisterSingle<IScoreController>( new ScoreController());
         }
     }
 }

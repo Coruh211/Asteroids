@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f97adea151b47bc8edac3f14fa2e34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipSprite: {fileID: 3526797109142394705}
 --- !u!114 &2935181479132573313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53682369890b40b58131e49d0e30e7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipSprite: {fileID: 3526797109142394705}
 --- !u!1 &5267531120814760330
 GameObject:
   m_ObjectHideFlags: 0

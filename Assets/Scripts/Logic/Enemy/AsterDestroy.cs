@@ -5,11 +5,13 @@ namespace Logic.Enemy
 {
     public class AsterDestroy: MonoBehaviour
     {
-        [SerializeField] private EnemySO miniAster;
         [SerializeField] private int spawnedAsterCount;
+        
+        private EnemySO miniAster;
         
         private void Start()
         {
+            miniAster = GetComponent<CurrentSOContainer>().miniAsterSo;
             GetComponent<EnemyTriggerController>().Destroyed += SpawnMiniAster;
         }
 

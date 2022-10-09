@@ -9,5 +9,7 @@ namespace StaticData
     {
         public GameObject prefab;
         public float moveSpeed;
+        public int scoreForDestroy;
     }
 }
+

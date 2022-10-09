@@ -5,12 +5,13 @@ namespace Logic.Ship
 {
     public class ShipTriggerController: MonoBehaviour, ITriggerController
     {
+        [SerializeField] private GameObject shipSprite;
         public void OnTriggerEnter(Collider other)
         {
             if(other.CompareTag(TagsContainer.Enemy))
             {
                 EventManager.OnEndGame.Invoke();
-                Destroy(gameObject);
+                shipSprite.SetActive(false);
             }
         }
     }

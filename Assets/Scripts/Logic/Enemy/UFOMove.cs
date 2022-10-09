@@ -1,20 +1,18 @@
-﻿using System;
-using Infrastructure.AssetManagement;
-using StaticData;
+﻿using StaticData;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 
 namespace Logic.Enemy
 {
     public class UFOMove: MonoBehaviour
     {
-        [SerializeField] private EnemySO _enemySo;
-        
+        private EnemySO _enemySo;
         private GameObject _player;
         
         private void Start()
         {
             _player = GameObject.FindWithTag(TagsContainer.Player);
+            _enemySo = GetComponent<CurrentSOContainer>().EnemySo;
         }
 
         private void FixedUpdate()

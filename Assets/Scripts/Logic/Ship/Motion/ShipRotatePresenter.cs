@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services;
+﻿using Infrastructure;
+using Infrastructure.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,11 +18,10 @@ namespace Logic.Ship.Motion
             _playerRotator = AllServices.Container.Single<IPlayerRotator>();
         }
         
-        private void FixedUpdate() => 
-            _playerRotator.UpdateRotate(transform);
-
-        
-        
-        
+        private void FixedUpdate()
+        {
+            if(GeneralInputState.Instance.input)
+                _playerRotator.UpdateRotate(transform);
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Infrastructure.AssetManagement;
 using StaticData;
 using UniRx;
 using UnityEngine;

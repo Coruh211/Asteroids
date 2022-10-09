@@ -20,7 +20,7 @@ namespace Infrastructure
             {
                 [typeof (BootstrapState)] = new BootstrapState(this, sceneLoader, services),
                 [typeof (LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadCanvas, services.Single<IGameFactory>(), services),
-                [typeof (GameLoopState)] = new GameLoopState(this)
+                [typeof (GameLoopState)] = new GameLoopState(this, services, sceneLoader, services.Single<IGameFactory>())
             };
         }
         

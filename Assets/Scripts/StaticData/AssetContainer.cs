@@ -1,5 +1,4 @@
-﻿using Infrastructure.AssetManagement;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace StaticData
 {
