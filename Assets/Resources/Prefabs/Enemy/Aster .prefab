@@ -93,12 +93,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6853440656741573820}
-  - component: {fileID: 2303376264269884513}
   - component: {fileID: 6744745140356201941}
+  - component: {fileID: 2303376264269884513}
   - component: {fileID: 4674828749573891507}
   - component: {fileID: 5133332583505163029}
-  - component: {fileID: 5660962848828035615}
   - component: {fileID: -7728633830910345670}
+  - component: {fileID: 2232689480340614417}
+  - component: {fileID: 5660962848828035615}
   m_Layer: 0
   m_Name: 'Aster '
   m_TagString: Enemy
@@ -122,18 +123,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2303376264269884513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7489850986205262195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19fbfde1ddb74df28d3a48d837b54743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &6744745140356201941
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -147,6 +136,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.258229, y: 7.9334397, z: 7.2811546}
   m_Center: {x: -0.07006198, y: 0.24395615, z: -0.1025182}
+--- !u!114 &2303376264269884513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489850986205262195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19fbfde1ddb74df28d3a48d837b54743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 1
 --- !u!114 &4674828749573891507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1347c7c23884766a92cfedc25bd39e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 1
 --- !u!114 &5133332583505163029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +174,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe306c4259940578239619f8eac7cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObjectsName: 2
   spawnedAsterCount: 2
+--- !u!114 &-7728633830910345670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489850986205262195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222e442d5092461a829feab89fdf3656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemySo: {fileID: 11400000, guid: 167d5a24ebfe84d4ebec8734eaaf5532, type: 2}
+  miniAsterSo: {fileID: 11400000, guid: 6b4958d924402f642825115d0f38cd7e, type: 2}
+--- !u!114 &2232689480340614417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489850986205262195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c681981ef93d4eada2bc1a49c07a8f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectNumber: 0
 --- !u!54 &5660962848828035615
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -188,17 +219,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-7728633830910345670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7489850986205262195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 222e442d5092461a829feab89fdf3656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemySo: {fileID: 11400000, guid: 167d5a24ebfe84d4ebec8734eaaf5532, type: 2}
-  miniAsterSo: {fileID: 11400000, guid: 6b4958d924402f642825115d0f38cd7e, type: 2}

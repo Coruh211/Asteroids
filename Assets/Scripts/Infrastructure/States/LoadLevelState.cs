@@ -56,11 +56,14 @@ namespace Infrastructure.States
 
         private void OnLoaded()
         {
+            _gameFactory.CreateObject(AssetPath.ObjectsPoolPath);
             _gameFactory.CreateObject(AssetContainer.ShipSo.shipPrefab);
+            
             GameObject ui = _gameFactory.CreateObject(AssetPath.UICanvasPath);
+            
             spawnPoints = GameObject.FindGameObjectsWithTag(TagsContainer.Spawner);
-            spawnContainer = GameObject.FindGameObjectWithTag(TagsContainer.SpawnContainer);
-            _spawnController = new SpawnController(spawnPoints, spawnContainer);
+            
+            _spawnController = new SpawnController(spawnPoints);
             ui.GetComponent<InformationTextsPresenter>().Init( AllServices.Container.Single<IPlayerMover>());
 
             _stateMachine.Enter<GameLoopState>();

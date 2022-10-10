@@ -1,5 +1,6 @@
 ﻿using System;
 using Logic.Enemy;
+using Logic.PoolObjects;
 using StaticData;
 using UniRx;
 using UnityEngine;
@@ -11,14 +12,12 @@ namespace Logic.Spawner
     public class SpawnController
     {
         private readonly GameObject[] _spawnPoints;
-        private readonly GameObject _spawnContainer;
         private readonly SpawnerSO _spawnerSo;
         private IDisposable dispose;
         
 
-        public SpawnController(GameObject[] spawnPoints, GameObject spawnContainer)
+        public SpawnController(GameObject[] spawnPoints)
         {
-            _spawnContainer = spawnContainer;
             _spawnPoints = spawnPoints;
             _spawnerSo = AssetContainer.SpawnerSO;
             EventManager.OnStartGame.Subscribe(SpawnEnemy);
@@ -33,9 +32,8 @@ namespace Logic.Spawner
                     var randomEnemy = Random.Range(0, _spawnerSo.enemySos.Count);
                     var randomPoint = Random.Range(0, _spawnPoints.Length);
 
-                    Object.Instantiate(_spawnerSo.enemySos[randomEnemy].prefab,
-                        _spawnPoints[randomPoint].transform.position,
-                        Quaternion.identity, _spawnContainer.transform);
+                    var spawnPool = PoolsContainer.Instance.GetRandomPool(randomEnemy);
+                    spawnPool.ActivateObject(_spawnPoints[randomPoint].transform.position);
                 });
         }
 
@@ -43,12 +41,7 @@ namespace Logic.Spawner
         {
             dispose?.Dispose();
             
-            var objects = GameObject.FindGameObjectsWithTag(TagsContainer.Enemy);
-            
-            for (int i = 0; i < objects.Length; i++)
-            {
-                Object.Destroy(objects[i].gameObject);
-            }
+            PoolsContainer.Instance.ReturnAllPools();
         }
             
     }

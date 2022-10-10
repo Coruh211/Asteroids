@@ -71,6 +71,7 @@ namespace Logic.Ship.Weapon
             if (_laserTimer != 0) 
                 return;
                 
+            dispose?.Dispose();
             _lasersCount++;
             
             if (_lasersCount < _maxLasers)

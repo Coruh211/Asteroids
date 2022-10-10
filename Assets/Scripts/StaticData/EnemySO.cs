@@ -7,6 +7,7 @@ namespace StaticData
     [Serializable]
     public class EnemySO: ScriptableObject
     {
+        public PoolObjectsNames Name;
         public GameObject prefab;
         public float moveSpeed;
         public int scoreForDestroy;

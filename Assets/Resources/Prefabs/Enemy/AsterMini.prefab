@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 414426916882443127}
-  - component: {fileID: 4984117410499994538}
   - component: {fileID: 524173592189432350}
+  - component: {fileID: 4984117410499994538}
   - component: {fileID: 1890468510716193400}
-  - component: {fileID: 3324962367941810724}
   - component: {fileID: -3370206071574248098}
+  - component: {fileID: 8157437887847766356}
+  - component: {fileID: 3324962367941810724}
   m_Layer: 0
   m_Name: AsterMini
   m_TagString: Enemy
@@ -37,19 +38,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4984117410499994538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408271056179166904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19fbfde1ddb74df28d3a48d837b54743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemySo: {fileID: 11400000, guid: 6b4958d924402f642825115d0f38cd7e, type: 2}
 --- !u!65 &524173592189432350
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63,6 +51,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.258229, y: 7.9334397, z: 7.2811546}
   m_Center: {x: -0.07006198, y: 0.24395615, z: -0.1025182}
+--- !u!114 &4984117410499994538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408271056179166904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19fbfde1ddb74df28d3a48d837b54743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 2
 --- !u!114 &1890468510716193400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +76,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1347c7c23884766a92cfedc25bd39e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 2
+--- !u!114 &-3370206071574248098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408271056179166904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 222e442d5092461a829feab89fdf3656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemySo: {fileID: 11400000, guid: 6b4958d924402f642825115d0f38cd7e, type: 2}
+  miniAsterSo: {fileID: 0}
+--- !u!114 &8157437887847766356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408271056179166904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c681981ef93d4eada2bc1a49c07a8f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectNumber: 0
 --- !u!54 &3324962367941810724
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -91,19 +120,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-3370206071574248098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408271056179166904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 222e442d5092461a829feab89fdf3656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemySo: {fileID: 11400000, guid: 6b4958d924402f642825115d0f38cd7e, type: 2}
 --- !u!1 &7877811549429380959
 GameObject:
   m_ObjectHideFlags: 0

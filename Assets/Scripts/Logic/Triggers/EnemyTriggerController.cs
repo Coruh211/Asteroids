@@ -1,5 +1,6 @@
 ﻿using System;
 using Infrastructure.Services;
+using Logic.PoolObjects;
 using StaticData;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Logic.Enemy
 {
     public class EnemyTriggerController: MonoBehaviour, ITriggerController
     {
+        [SerializeField] private PoolObjectsNames name;
         private IScoreController _scoreController;
         public Action Destroyed;
         private EnemySO enemySo;
@@ -30,10 +32,19 @@ namespace Logic.Enemy
                 DestroyUnit();
             }
         }
-        
+
+        public void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag(TagsContainer.Level))
+            {
+                DestroyUnit();
+            }
+        }
+
         private void DestroyUnit()
         {
-            Destroy(gameObject);
+            var spawnPool = PoolsContainer.Instance.GetCurrentPool(name);
+            spawnPool.ReturnObject(GetComponent<PoolObject>().objectNumber);
         }
     }
 }
