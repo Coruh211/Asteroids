@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad5c5846ffc44279599030a9113184a, type: 3}
   m_Name: AsterSO
   m_EditorClassIdentifier: 
+  Name: 1
   prefab: {fileID: 7489850986205262195, guid: 9ec44dff94ceb024492331d131804c04, type: 3}
   moveSpeed: 0.01
   scoreForDestroy: 10

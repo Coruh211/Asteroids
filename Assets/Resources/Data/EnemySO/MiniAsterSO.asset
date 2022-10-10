@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad5c5846ffc44279599030a9113184a, type: 3}
   m_Name: MiniAsterSO
   m_EditorClassIdentifier: 
+  Name: 2
   prefab: {fileID: 4408271056179166904, guid: 883029b3fc25b0141aa8c47c506e5e5e, type: 3}
   moveSpeed: 0.03
   scoreForDestroy: 20
